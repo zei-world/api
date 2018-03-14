@@ -5,7 +5,7 @@ position: 3
 
 **Vous utilisez PrestaShop ? Suivez les étapes suivantes !**
 
-1. Téléchargez [cette archive, en cliquant ici](https://github.com/zeroecoimpact/API/raw/master/PrestaShop/zei-prestashop_latest.zip)
+1. Téléchargez [cette archive, en cliquant ici](https://github.com/zei-world/api-prestashop/raw/master/dist/zei-prestashop-latest.zip)
 2. Dans votre panel d'administration PrestaShop, allez dans "Modules" > "Modules & Services"
 3. Cliquez sur "Mettre un module en ligne" et envoyez l'archive précédement téléchargée, après l'installation cliquez
     sur "Configurer"
