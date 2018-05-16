@@ -9,9 +9,7 @@ position: 1
   * Go to "Plugins" > "Add New" and search "zei", then "Install"
   * Or [dowload the plugin here](https://wordpress.org/plugins-wp/zero-ecoimpact-woocommerce/)
   and install it : "Plugins" > "Add New" > "Upload Plugin"
-  * Or upload the "zei-wc" directory
-  ([from the repository](https://github.com/zeroecoimpact/API/tree/master/WooCommerce){:target="_blank"})
-  on "/wp-content/plugins/" from your WordPress installation (by FTP for example)
+  * Or upload ([this repository](https://github.com/zei-world/api-woocommerce){:target="_blank"}) inside a "zei-wc" directory on "/wp-content/plugins/" from your WordPress installation (by FTP for example)
 2. Go to [Zei](https://zei-world.com){:target="_blank"} > your company Public Profile > "My Tools" > "API management"
 3. Then, in your WordPress admin panel, go to "WooCommerce" > "Settings" > "Integration" and fill in your ZEI API credentials (API key and API secret)
 4. From there, you'll be able to manage your offers in two ways : (for your rewards, refer to the section below)
