@@ -1,0 +1,31 @@
+openapi: 3.0.0
+info:
+  title: 'Zei Organizations API'
+  version: '1.0'
+servers:
+  -
+    url: 'https://api.zei-world.com/organization'
+paths:
+  '/{org_id}/investments':
+    get:
+      summary: 'Renvoie les engagements d''une entreprise classés par super catégorie puis catégorie intermédiaire'
+      operationId: get-investments
+      parameters:
+        -
+          name: org_id
+          in: path
+          description: 'ID of Organization to return'
+          required: true
+      responses:
+        '200':
+          description: 'The organization indicators list'
+        '404':
+          description: 'The organization doesn''t exist or is private'
+components:
+  schemas:
+    Organization:
+      properties:
+        name:
+          title: 'The organization name'
+          type: string
+      type: object
