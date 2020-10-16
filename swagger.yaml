@@ -9,23 +9,58 @@ paths:
   '/{org_id}/investments':
     get:
       summary: 'Renvoie les engagements d''une entreprise classés par super catégorie puis catégorie intermédiaire'
-      operationId: get-investments
+      operationId: getInvestments
       parameters:
         -
           name: org_id
           in: path
           description: 'ID of Organization to return'
           required: true
+          schema:
+            type: integer
       responses:
         '200':
           description: 'The organization indicators list'
+          content:
+            application/json:
+              schema:
+                properties:
+                  id: { description: 'The organization ID', type: integer }
+                  name: { description: 'The organization name', type: string }
+                  superCategories: { description: 'List of super-categories', type: array, items: { properties: { superCategory: { description: 'Super-category name', type: array, items: { properties: { indicatorCategory: { description: 'Indicator category name', type: array, items: { properties: { id: { description: 'The indicator ID', type: integer, example: '42' }, name: { description: 'The indicator name', type: string }, score: { description: 'The indicator score', type: integer }, type: { description: 'Percent, boolean or bonus', type: string }, date: { description: 'Date of completion', type: string }, description: { description: 'Comment from Organization', type: string }, category: { description: 'Indicator category name', type: string }, superCategory: { description: 'Super-category name', type: string }, section: { description: 'Business section', type: string }, predictionDate: { description: 'Predicted date', type: string }, predictionScore: { description: 'Predicted score', type: integer } }, type: object } } }, type: object } } }, type: object } }
+                type: object
+        '401':
+          $ref: '#/components/schemas/401'
         '404':
-          description: 'The organization doesn''t exist or is private'
+          $ref: '#/components/schemas/404'
+        '422':
+          $ref: '#/components/schemas/422'
+        '500':
+          $ref: '#/components/schemas/500'
+      security:
+        -
+          id: []
+          secret: []
 components:
   schemas:
-    Organization:
-      properties:
-        name:
-          title: 'The organization name'
-          type: string
-      type: object
+    '401':
+      description: 'Bad credentials or not authorised to access content'
+      type: response
+    '404':
+      description: 'The organization doesn''t exist or is private'
+      type: response
+    '422':
+      description: 'API id or secret key missing'
+      type: response
+    '500':
+      description: 'Unexpected error'
+      type: response
+  securitySchemes:
+    id:
+      type: apiKey
+      name: id
+      in: query
+    secret:
+      type: apiKey
+      name: secret
+      in: query
