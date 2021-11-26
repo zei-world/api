@@ -144,6 +144,74 @@ paths:
         -
           id: []
           secret: []
+  '/network/{network_id}':
+    get:
+      summary: 'Get list of organizations in your network'
+      operationId: getOrganizationNetworksInfos
+      parameters:
+        -
+          name: network_id
+          in: path
+          description: 'ID of your network'
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 'The organization list'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      description: 'The organization ID'
+                      type: integer
+                    name:
+                      description: 'The organization name'
+                      type: string
+                    last_update:
+                      description: 'Date of last update from organization'
+                      type: object
+                      properties:
+                        date:
+                          type: string
+                        timezone_type:
+                          type: string
+                        timezone:
+                          type: string
+                    join_network:
+                      description: 'Date of organization joining your network'
+                      type: object
+                      properties:
+                        date:
+                          type: string
+                        timezone_type:
+                          type: string
+                        timezone:
+                          type: string
+                    environment:
+                      description: 'Environment score on Zei'
+                      type: integer
+                    social:
+                      description: 'Social score on Zei'
+                      type: integer
+                    governance:
+                      description: 'Governance score on Zei'
+                      type: integer
+        '401':
+          $ref: '#/components/schemas/401'
+        '404':
+          $ref: '#/components/schemas/404'
+        '422':
+          $ref: '#/components/schemas/422'
+        '500':
+          $ref: '#/components/schemas/500'
+      security:
+        - id: [ ]
+          secret: [ ]
 components:
   schemas:
     '401':
