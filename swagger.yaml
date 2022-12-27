@@ -4,9 +4,9 @@ info:
   version: '1.0'
 servers:
   -
-    url: 'https://api.zei-world.com/organizations'
+    url: 'https://api.zei-world.com'
 paths:
-  '/{org_id}/scores':
+  '/organizations/{org_id}/scores':
     get:
       summary: 'Renvoie les scores actifs d''une entreprise par super catégorie'
       operationId: getScores
@@ -58,7 +58,7 @@ paths:
         -
           id: []
           secret: []
-  '/{org_id}/investments':
+  '/organizations/{org_id}/investments':
     get:
       summary: 'Renvoie les engagements d''une entreprise classés par super catégorie puis catégorie intermédiaire'
       operationId: getInvestments
@@ -144,7 +144,7 @@ paths:
         -
           id: []
           secret: []
-  '/network/{network_id}':
+  '/organizations/network/{network_id}':
     get:
       summary: 'Get list of organizations in your network'
       operationId: getOrganizationNetworksInfos
@@ -212,6 +212,96 @@ paths:
       security:
         - id: [ ]
           secret: [ ]
+  '/network/{network_id}/organization/{org_id}':
+    get:
+      summary: 'Renvoie les engagements du réseau d''une entreprise classés par super catégorie puis catégorie intermédiaire'
+      operationId: getNetworkInvestments
+      parameters:
+        -
+          name: org_id
+          in: path
+          description: 'ID of Organization to return'
+          required: true
+          schema:
+            type: integer
+        -
+          name: network_id
+          in: path
+          description: 'Your Network ID'
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 'The organization indicators list'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    description: 'The organization ID'
+                    type: integer
+                  name:
+                    description: 'The organization name'
+                    type: string
+                  superCategories:
+                    description: 'List of super-categories'
+                    type: object
+                    properties:
+                      superCategory:
+                        description: 'Super-category name'
+                        type: object
+                        properties:
+                          indicatorCategory:
+                            description: 'Indicator category name'
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                id:
+                                  description: 'The indicator ID'
+                                  type: integer
+                                  example: 0
+                                name:
+                                  description: 'The indicator name'
+                                  type: string
+                                score:
+                                  description: 'The indicator score'
+                                  type: integer
+                                type:
+                                  description: 'Percent, boolean or bonus'
+                                  type: string
+                                date:
+                                  description: 'Date of completion'
+                                  type: string
+                                description:
+                                  description: 'Comment from Organization'
+                                  type: string
+                                category:
+                                  description: 'Indicator category name'
+                                  type: string
+                                superCategory:
+                                  description: 'Super-category name'
+                                  type: string
+                                predictionDate:
+                                  description: 'Predicted date'
+                                  type: string
+                                predictionScore:
+                                  description: 'Predicted score'
+                                  type: integer
+        '401':
+          $ref: '#/components/schemas/401'
+        '404':
+          $ref: '#/components/schemas/404'
+        '422':
+          $ref: '#/components/schemas/422'
+        '500':
+          $ref: '#/components/schemas/500'
+      security:
+        -
+          id: []
+          secret: []
 components:
   schemas:
     '401':
