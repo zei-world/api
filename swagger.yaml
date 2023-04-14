@@ -306,7 +306,7 @@ paths:
           id: []
           secret: []
 
-  '[BETA] /network/{network_id}/zei-scores':
+  '/network/{network_id}/zei-scores':
     get:
       summary: '[BETA] Get Zei referential scores and completion rate from organizations in your network'
       operationId: getNetworkZeiScores
