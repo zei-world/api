@@ -8,7 +8,7 @@ servers:
 paths:
   '/organizations/{org_id}/scores':
     get:
-      summary: 'Renvoie les scores actifs d''une entreprise par super catégorie'
+      summary: 'Get organization scores in each category'
       operationId: getScores
       parameters:
         -
@@ -58,9 +58,10 @@ paths:
         -
           id: []
           secret: []
+          
   '/organizations/{org_id}/investments':
     get:
-      summary: 'Renvoie les engagements d''une entreprise classés par super catégorie puis catégorie intermédiaire'
+      summary: 'Get organization completions in each categories and sub-categories'
       operationId: getInvestments
       parameters:
         -
@@ -144,6 +145,7 @@ paths:
         -
           id: []
           secret: []
+
   '/organizations/network/{network_id}':
     get:
       summary: 'Get list of organizations in your network'
@@ -212,9 +214,10 @@ paths:
       security:
         - id: [ ]
           secret: [ ]
+
   '/network/{network_id}/organization/{org_id}':
     get:
-      summary: 'Renvoie les engagements du réseau d''une entreprise classés par super catégorie puis catégorie intermédiaire'
+      summary: 'Get organization completions from your network referential'
       operationId: getNetworkInvestments
       parameters:
         -
@@ -302,6 +305,98 @@ paths:
         -
           id: []
           secret: []
+
+  '[BETA] /network/{network_id}/zei-scores':
+    get:
+      summary: '[BETA] Get Zei referential scores and completion rate from organizations in your network'
+      operationId: getNetworkZeiScores
+      parameters:
+        -
+          name: network_id
+          in: path
+          description: 'ID of your network'
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 'The organization list'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                      id:
+                        description: 'The organization ID'
+                        type: integer
+                      name:
+                        description: 'The organization name'
+                        type: string
+                      last_update:
+                        description: 'Date of last update from organization'
+                        type: string
+                      join_network:
+                        description: 'Date of organization joining your network'
+                        type: string
+                      environnement:
+                        type: object
+                        properties:
+                          score:
+                            description: 'Environment score'
+                            type: integer
+                          potential_score:
+                            description: 'Environment potential score'
+                            type: integer
+                          indicators_completed:
+                            description: 'Number of Environment indicators completed'
+                            type: integer
+                          indicators_total:
+                            description: 'Total of Environement indicators'
+                            type: integer
+                      social:
+                        type: object
+                        properties:
+                          score:
+                            description: 'Social score'
+                            type: integer
+                          potential_score:
+                            description: 'Social potential score'
+                            type: integer
+                          indicators_completed:
+                            description: 'Number of Social indicators completed'
+                            type: integer
+                          indicators_total:
+                            description: 'Total of Social indicators'
+                            type: integer
+                      gouvernance:
+                        type: object
+                        properties:
+                          score:
+                            description: 'Governance score'
+                            type: integer
+                          potential_score:
+                            description: 'Governance potential score'
+                            type: integer
+                          indicators_completed:
+                            description: 'Number of Governance indicators completed'
+                            type: integer
+                          indicators_total:
+                            description: 'Total of Governance indicators'
+                            type: integer
+        '401':
+          $ref: '#/components/schemas/401'
+        '404':
+          $ref: '#/components/schemas/404'
+        '422':
+          $ref: '#/components/schemas/422'
+        '500':
+          $ref: '#/components/schemas/500'
+      security:
+        - id: [ ]
+          secret: [ ]
+
 components:
   schemas:
     '401':
